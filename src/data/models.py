@@ -1,7 +1,7 @@
 from typing import Optional
 from dataclasses import dataclass, asdict
 
-from src.core import sql
+from src.core.infra import sql
 
 
 @dataclass

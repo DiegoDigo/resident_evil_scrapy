@@ -5,7 +5,7 @@ import logging
 import requests
 from bs4 import BeautifulSoup
 
-from src.core import constants
+from src.core.util import constants
 from src.data.models import Character, Game
 
 
