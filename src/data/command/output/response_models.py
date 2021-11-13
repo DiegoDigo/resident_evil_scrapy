@@ -17,7 +17,6 @@ class CharacterResponse:
     year_burn: str
     weight: str
     height: str
-    appearances: list[AppearancesResponse]
 
 
 @dataclass

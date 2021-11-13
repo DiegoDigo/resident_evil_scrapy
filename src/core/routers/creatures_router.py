@@ -7,7 +7,7 @@ from src.core.util.json_util import JSONEncoder
 from src.data import read_html
 from src.core.infra.queries import creatures_query
 
-router = APIRouter()
+router = APIRouter(tags=["Creatures"])
 
 
 @router.get("/")

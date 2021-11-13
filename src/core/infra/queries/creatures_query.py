@@ -1,7 +1,7 @@
 from dataclasses import asdict
 
 from src.core.infra import sql
-from src.data.command.output.response import CreatureResponse
+from src.data.command.output.response_models import CreatureResponse
 
 _DB = sql.DB_CREATURE
 
