@@ -11,8 +11,8 @@ class Game:
     character_id: Optional[str]
 
     def save(self):
-        game_table = sql.DB_GAME
-        return game_table.insert_one(asdict(self)).inserted_id
+        doc = sql.DB_GAME
+        return doc.insert_one(asdict(self)).inserted_id
 
 
 @dataclass
@@ -25,5 +25,15 @@ class Character:
     image: str
 
     def save(self):
-        character_table = sql.DB_CHARACTER
-        return character_table.insert_one(asdict(self)).inserted_id
+        doc = sql.DB_CHARACTER
+        return doc.insert_one(asdict(self)).inserted_id
+
+
+@dataclass
+class Creature:
+    name: str
+    image: str
+
+    def save(self):
+        doc = sql.DB_CREATURE
+        return doc.insert_one(asdict(self)).inserted_id

@@ -4,7 +4,7 @@ from fastapi import APIRouter
 
 from src.core.util import constants
 from src.core.util.json_util import JSONEncoder
-from src.data import character, read_html
+from src.data import character_query, read_html
 
 router = APIRouter()
 
@@ -12,7 +12,7 @@ router = APIRouter()
 @router.get("/")
 async def buscar_todos_os_personagens():
     """Retorna todos os personagens , com seus jogos"""
-    return json.loads(json.dumps(character.get_all(), cls=JSONEncoder))
+    return json.loads(json.dumps(character_query.get_all(), cls=JSONEncoder))
 
 
 @router.get("/sync")

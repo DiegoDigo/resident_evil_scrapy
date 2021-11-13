@@ -6,7 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from src.core.util import constants
-from src.data.models import Character, Game
+from src.data.models import Character, Game, Creature
 
 
 def read(path: str) -> Union[BeautifulSoup, None]:
@@ -77,3 +77,10 @@ def _get_year(description):
         return math[0]
     else:
         return "Desconhecido."
+
+
+def get_creature(soup: BeautifulSoup):
+    if soup:
+        name = soup.find("h1", {'class': 'entry-title td-page-title'}).find('span').get_text().split("|")[1].strip()
+        img = soup.find("img", {'class': 'alignleft'})['src']
+        Creature(name, img).save()

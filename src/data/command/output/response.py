@@ -19,3 +19,9 @@ class CharacterResponse:
     height: str
     appearances: list[GameResponse]
 
+
+@dataclass
+class CreatureResponse:
+    id: str
+    name: str
+    image: str
