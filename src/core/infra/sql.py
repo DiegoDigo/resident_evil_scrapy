@@ -10,6 +10,7 @@ def get_database():
     return client['scrap_resident_evil']
 
 
-DB_GAME = get_database().Game
+DB_APPEARANCES = get_database().Appearances
 DB_CHARACTER = get_database().Character
 DB_CREATURE = get_database().Creature
+DB_GAME = get_database().Game

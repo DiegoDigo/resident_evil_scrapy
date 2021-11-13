@@ -4,7 +4,8 @@ from fastapi import APIRouter
 
 from src.core.util import constants
 from src.core.util.json_util import JSONEncoder
-from src.data import read_html, creatures_query
+from src.data import read_html
+from src.core.infra.queries import creatures_query
 
 router = APIRouter()
 

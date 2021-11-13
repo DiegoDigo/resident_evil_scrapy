@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class GameResponse:
+class AppearancesResponse:
     id: str
     name: str
     year: str
@@ -17,7 +17,7 @@ class CharacterResponse:
     year_burn: str
     weight: str
     height: str
-    appearances: list[GameResponse]
+    appearances: list[AppearancesResponse]
 
 
 @dataclass
@@ -25,3 +25,12 @@ class CreatureResponse:
     id: str
     name: str
     image: str
+
+
+@dataclass
+class GameResponse:
+    id: str
+    name: str
+    image: str
+    synopsis: str
+    release: list[str]

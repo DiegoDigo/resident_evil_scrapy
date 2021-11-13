@@ -6,7 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from src.core.util import constants
-from src.data.models import Character, Game, Creature
+from src.data.models import Character, Appearances, Creature, Game
 
 
 def read(path: str) -> Union[BeautifulSoup, None]:
@@ -25,6 +25,30 @@ def get_links(soup: BeautifulSoup) -> list:
                 if link.__contains__(constants.URL_BASE):
                     links.append(link)
     return links
+
+
+def get_link_ul(soup: BeautifulSoup) -> list:
+    links = []
+    if soup:
+        div_content = soup.find('div', {'class', 'td-page-content'})
+        for paragraph in div_content.findAll('ul'):
+            for link in paragraph.findAll('li'):
+                link = str(link.find('a')['href'])
+                links.append(link)
+    return links
+
+
+def get_ul(soup: BeautifulSoup) -> list:
+    lis = []
+    if soup:
+        for paragraph in soup.findAll('ul'):
+            for link in paragraph.findAll('li'):
+                em = link.find('em')
+                if em:
+                    lis.append(link.find('em').get_text().strip().replace(u'\xa0', ' '))
+                else:
+                    link.get_text()
+    return lis
 
 
 def get_character(soup: BeautifulSoup):
@@ -65,7 +89,7 @@ def get_game(soup: BeautifulSoup, character_id) -> None:
         for index, game in enumerate(paragraph_games.find_all('a')):
             name = game.get_text().strip().replace(u'\xa0', ' ')
             year = years[index]
-            Game(name, year, character_id).save()
+            Appearances(name, year, character_id).save()
 
 
 def _get_year(description):
@@ -84,3 +108,16 @@ def get_creature(soup: BeautifulSoup):
         name = soup.find("h1", {'class': 'entry-title td-page-title'}).find('span').get_text().split("|")[1].strip()
         img = soup.find("img", {'class': 'alignleft'})['src']
         Creature(name, img).save()
+
+
+def get_info_game(soup: BeautifulSoup):
+    if soup:
+        div_content = soup.find('div', {'class', 'td-page-content'})
+        name = soup.find("h1", {'class': 'entry-title td-page-title'}).find('span').get_text().split("|")[1].strip()
+        img = div_content.find("img")['src']
+        synopsis = ' '.join([t.get_text().replace('"', '') for t in div_content.find_all('p')])
+        release = get_ul(div_content)
+
+        Game(name, img, synopsis, release).save()
+
+

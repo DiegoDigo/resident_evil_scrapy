@@ -5,13 +5,13 @@ from src.core.infra import sql
 
 
 @dataclass
-class Game:
+class Appearances:
     name: str
     year: str
     character_id: Optional[str]
 
     def save(self):
-        doc = sql.DB_GAME
+        doc = sql.DB_APPEARANCES
         return doc.insert_one(asdict(self)).inserted_id
 
 
@@ -36,4 +36,16 @@ class Creature:
 
     def save(self):
         doc = sql.DB_CREATURE
+        return doc.insert_one(asdict(self)).inserted_id
+
+
+@dataclass
+class Game:
+    name: str
+    image: str
+    synopsis: str
+    release: list[str]
+
+    def save(self):
+        doc = sql.DB_GAME
         return doc.insert_one(asdict(self)).inserted_id

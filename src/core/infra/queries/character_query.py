@@ -1,14 +1,14 @@
 from dataclasses import asdict
 
 from src.core.infra import sql
-from src.data.command.output.response import CharacterResponse, GameResponse
+from src.data.command.output.response import CharacterResponse, AppearancesResponse
 
 _DB = sql.DB_CHARACTER
 
 
-def _get_games_response(games) -> list[GameResponse]:
+def _get_games_response(games) -> list[AppearancesResponse]:
     """Metodo para gerar a respota de games"""
-    return [asdict(GameResponse(game.get('_id'), game.get('name'), game.get('year'))) for game in games]
+    return [asdict(AppearancesResponse(game.get('_id'), game.get('name'), game.get('year'))) for game in games]
 
 
 def _add_character_response(character):
