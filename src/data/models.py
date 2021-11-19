@@ -33,6 +33,8 @@ class Character:
 class Creature:
     name: str
     image: str
+    description: str
+    strategies: str
 
     def save(self):
         doc = sql.DB_CREATURE

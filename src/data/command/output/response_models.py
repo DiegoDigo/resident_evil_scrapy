@@ -24,6 +24,8 @@ class CreatureResponse:
     id: str
     name: str
     image: str
+    description: str
+    strategies: str
 
 
 @dataclass

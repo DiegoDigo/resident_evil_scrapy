@@ -8,7 +8,8 @@ _DB = sql.DB_CREATURE
 
 def _add_creature_response(character):
     """Metodo para gerar a respota de character"""
-    return asdict(CreatureResponse(character.get('_id'), character.get('name'), character.get('image')))
+    return asdict(CreatureResponse(character.get('_id'), character.get('name'), character.get('image'),
+                                   character.get('description'), character.get('strategies')))
 
 
 def get_all():

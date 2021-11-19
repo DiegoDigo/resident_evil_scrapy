@@ -23,5 +23,6 @@ async def syncroniza_os_dados():
     for link in read_html.get_links(html):
         resp = read_html.read(link)
         read_html.get_creature(resp)
+        break
 
     return "ok"

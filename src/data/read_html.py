@@ -106,8 +106,11 @@ def _get_year(description):
 def get_creature(soup: BeautifulSoup):
     if soup:
         name = soup.find("h1", {'class': 'entry-title td-page-title'}).find('span').get_text().split("|")[1].strip()
-        img = soup.find("img", {'class': 'alignleft'})['src']
-        Creature(name, img).save()
+        div_content = soup.find("div", {'class': 'td-page-content'})
+        img = div_content.find("img", {'class': 'alignleft'})['src']
+        description = " ".join(list(map(lambda tag: tag.getText(), div_content.hr.find_previous_siblings("p"))))
+        strategies = " ".join(list(map(lambda tag: tag.getText(), div_content.hr.find_next_siblings("p"))))
+        Creature(name, img, description, strategies).save()
 
 
 def get_info_game(soup: BeautifulSoup):
@@ -119,5 +122,3 @@ def get_info_game(soup: BeautifulSoup):
         release = get_ul(div_content)
 
         Game(name, img, synopsis, release).save()
-
-
