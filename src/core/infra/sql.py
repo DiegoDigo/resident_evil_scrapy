@@ -14,3 +14,7 @@ DB_APPEARANCES = get_database().Appearances
 DB_CHARACTER = get_database().Character
 DB_CREATURE = get_database().Creature
 DB_GAME = get_database().Game
+
+
+def drop_colection(db):
+    db.drop()

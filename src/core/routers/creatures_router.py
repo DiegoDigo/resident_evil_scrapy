@@ -1,6 +1,7 @@
 import json
 
 from fastapi import APIRouter
+from src.core.infra import sql
 
 from src.core.util import constants
 from src.core.util.json_util import JSONEncoder
@@ -19,10 +20,10 @@ async def buscar_todos_as_criaturas():
 @router.get("/sync")
 async def syncroniza_os_dados():
     """Metodos que faz a importação das criaturas"""
+    sql.drop_colection(sql.DB_CREATURE)
     html = read_html.read(constants.CREATURES)
     for link in read_html.get_links(html):
         resp = read_html.read(link)
         read_html.get_creature(resp)
-        break
 
     return "ok"

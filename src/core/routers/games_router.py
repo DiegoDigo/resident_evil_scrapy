@@ -1,6 +1,7 @@
 import json
 
 from fastapi import APIRouter
+from src.core.infra import sql
 
 from src.core.util import constants
 from src.core.util.json_util import JSONEncoder
@@ -20,6 +21,7 @@ async def buscar_todos_os_jogos():
 @router.get("/sync", response_model=response_types.ResponseBase)
 async def syncroniza_os_dados():
     """Metodos que faz a importação dos jogos"""
+    sql.drop_colection(sql.DB_GAME)
     html = read_html.read(constants.GAMES)
     for link in read_html.get_link_ul(html):
         resp = read_html.read(link)
