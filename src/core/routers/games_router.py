@@ -11,16 +11,10 @@ from src.data.command.output import response_types
 router = APIRouter(tags=["Games"])
 
 
-@router.get("/", response_model=response_types.ResponseListGame)
+@router.get("/")
 async def buscar_todos_os_jogos():
     """Retorna todas os jogos"""
     return json.loads(json.dumps(games_query.get_all(), cls=JSONEncoder))
-
-
-@router.get("/{game_id}", response_model=response_types.ResponseGame)
-async def buscar_todos_os_jogos(game_id: str):
-    """Retorna todas os jogos"""
-    return json.loads(json.dumps(games_query.get_by_id(game_id), cls=JSONEncoder))
 
 
 @router.get("/sync", response_model=response_types.ResponseBase)
@@ -32,3 +26,9 @@ async def syncroniza_os_dados():
         read_html.get_info_game(resp)
 
     return {"status": "ok"}
+
+
+@router.get("/{game_id}/detail")
+async def buscar_todos_os_jogos(game_id: str):
+    """Retorna todas os jogos"""
+    return json.loads(json.dumps(games_query.get_by_id(game_id), cls=JSONEncoder))

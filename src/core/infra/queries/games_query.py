@@ -1,5 +1,5 @@
 from dataclasses import asdict
-
+from bson.objectid import ObjectId
 from src.core.infra import sql
 from src.data.command.output.response_models import GameResponse
 
@@ -22,6 +22,6 @@ def get_all():
 
 
 def get_by_id(id: str) -> dict:
-    filter = {"_id": {"$eq": id}}
+    filter = {"_id": {"$eq": ObjectId(id)}}
     game = _DB.find_one(filter)
     return _add_game_response(game)
