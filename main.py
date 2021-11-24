@@ -1,4 +1,5 @@
 import uvicorn
+from decouple import config
 
 from fastapi.middleware.cors import CORSMiddleware
 from src.core.routers import character_router, creatures_router, games_router
@@ -20,4 +21,5 @@ app.add_middleware(
 )
 
 if __name__ == '__main__':
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    PORT = int(config('PORT', 8000))
+    uvicorn.run(app, host="0.0.0.0", port=PORT, )

@@ -20,7 +20,7 @@ async def buscar_todos_as_criaturas():
 @router.get("/sync")
 async def syncroniza_os_dados():
     """Metodos que faz a importação das criaturas"""
-    sql.drop_colection(sql.DB_CREATURE)
+    sql.drop_collection(sql.DB_CREATURE)
     html = read_html.read(constants.CREATURES)
     for link in read_html.get_links(html):
         resp = read_html.read(link)

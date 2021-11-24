@@ -1,13 +1,24 @@
+from decouple import config
+import urllib.parse
+
 from pymongo import MongoClient
+
+USERNAME = config('USERNAME')
+PASSWORD = config('PASSWORD')
 
 
 def get_database():
+    username = urllib.parse.quote(USERNAME)
+    password = urllib.parse.quote(PASSWORD)
+
     connection_args = {
         "zlibCompressionLevel": 7,
         "compressors": "zlib"
     }
-    client = MongoClient('mongodb://root:MongoDB2019!@localhost:27017/', **connection_args)
-    return client['scrap_resident_evil']
+
+    mongo_uri = f'mongodb+srv://{username}:{password}@residentevil.szct5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+    client = MongoClient(mongo_uri, **connection_args)
+    return client['resident_evil']
 
 
 DB_APPEARANCES = get_database().Appearances
@@ -16,5 +27,5 @@ DB_CREATURE = get_database().Creature
 DB_GAME = get_database().Game
 
 
-def drop_colection(db):
+def drop_collection(db):
     db.drop()
